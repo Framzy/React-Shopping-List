@@ -1,14 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Borel&family=Comfortaa:wght@300;400;700&display=swap");
 
+:root {
+  --primary-color: #1c3523;
+  --secondary-color: #606c38;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-/* html {
-  font-size: 62.5%;
-} */
 
 body {
   font-size: 1rem;
@@ -23,19 +24,21 @@ body {
   margin: auto;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
+  border-left: 5px solid #99baa2;
+  border-right: 5px solid #99baa2;
 }
 
 h1 {
   font-family: "Borel";
   text-align: center;
-  background-color: #283618;
+  background-color: #1c3523;
   color: white;
   font-size: 3rem;
   padding: 2rem 0 1rem;
 }
 
 .add-form {
-  background-color: #dda15e;
+  background-color: var(--secondary-color);
   padding: 1.5rem 0;
   display: flex;
   flex-direction: row;
@@ -47,6 +50,7 @@ h1 {
 .add-form h3 {
   margin-right: 1rem;
   font-size: 1.5rem;
+  color: white;
 }
 
 button,
@@ -54,15 +58,11 @@ select,
 input {
   background-color: #fefae0;
   font-family: inherit;
-  border: none;
   border-radius: 3rem;
+  border: none;
   padding: 1rem 2rem;
   font-size: 1.5rem;
   cursor: pointer;
-  -webkit-border-radius: 3rem;
-  -moz-border-radius: 3rem;
-  -ms-border-radius: 3rem;
-  -o-border-radius: 3rem;
 }
 
 button {
@@ -75,6 +75,7 @@ button {
   background-image: url(img/paper-bg.jpg);
   background-repeat: repeat-y;
   background-size: 100%;
+  background-blend-mode: color-burn;
   /* background-attachment: local; */
   color: #fefae0;
   padding: 2.3rem 0 0;
@@ -86,12 +87,20 @@ button {
   overflow-y: scroll;
 }
 
+.list::-webkit-scrollbar {
+  width: 0.8rem;
+}
+.list::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
 .list ul {
   list-style: none;
-  width: 80%;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   margin-top: -1rem;
 }
 
@@ -108,7 +117,8 @@ button {
 .list input[type="checkbox"] {
   height: 2rem;
   width: 2rem;
-  accent-color: #283618;
+  cursor: pointer;
+  accent-color: #000000;
   margin-right: 1.5rem;
 }
 
@@ -117,16 +127,16 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   padding: 0;
-  width: 3rem;
-  height: 3rem;
-  background-color: red;
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: rgb(143, 14, 14);
   margin-left: 1rem;
 }
 
 .actions {
-  background-color: #606c38;
+  background-color: var(--secondary-color);
   width: 100%;
   padding: 1.5rem 0;
   text-align: center;
@@ -140,7 +150,7 @@ button {
 }
 
 .stats {
-  background-color: #bc6c25;
+  background-color: var(--primary-color);
   color: white;
   text-align: center;
   padding: 1.5rem 0;
