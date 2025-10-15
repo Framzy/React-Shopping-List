@@ -38,7 +38,7 @@ h1 {
   background-color: #dda15e;
   padding: 2.8rem 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
