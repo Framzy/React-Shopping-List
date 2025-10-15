@@ -3,25 +3,27 @@ import { useState } from "react";
 const groceryItems = [
   {
     id: 1,
-    name: "Kopi Bubuk",
-    quantity: 2,
+    name: "Sabun Mandi",
+    quantity: 3,
     checked: true,
   },
   {
     id: 2,
-    name: "Gula Pasir",
-    quantity: 5,
+    name: "Beras perliter",
+    quantity: 3,
     checked: false,
   },
   {
     id: 3,
-    name: "Air Mineral",
-    quantity: 3,
+    name: "Sabun Cuci Piring",
+    quantity: 1,
     checked: false,
   },
 ];
 
 export default function App() {
+  const [items, setItems] = useState(groceryItems);
+
   return (
     <div className="app">
       <Header />
