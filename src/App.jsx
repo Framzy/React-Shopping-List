@@ -55,7 +55,7 @@ export default function App() {
         onCheckedItem={handleToggleItem}
         onClearItems={handleClearItems}
       />
-      <Footer />
+      <Footer items={items} />
     </div>
   );
 }
@@ -102,19 +102,21 @@ function Form({ onAddItem }) {
     <>
       <form className="add-form" onSubmit={handleSubmit}>
         <h3>Hari ini belanja apa kita?</h3>
-        <select
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        >
-          {quantityNum}
-        </select>
-        <input
-          type="text"
-          placeholder="nama barang..."
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button>Tambah</button>
+        <div className="form-control">
+          <select
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+          >
+            {quantityNum}
+          </select>
+          <input
+            type="text"
+            placeholder="nama barang..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button>Tambah</button>
+        </div>
       </form>
     </>
   );
@@ -125,12 +127,17 @@ function GroceryList({ items, onDeleteItem, onCheckedItem, onClearItems }) {
 
   let sortedItems;
 
-  if (sortBy === "input") sortedItems = items;
-  if (sortBy === "name") {
-    sortedItems = items.slice().sort((a, b) => a.name.localeCompare(b.name));
-  }
-  if (sortBy === "checked") {
-    sortedItems = items.slice().sort((a, b) => a.checked - b.checked);
+  switch (sortBy) {
+    case "name":
+      sortedItems = items.slice().sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "checked":
+      sortedItems = items.slice().sort((a, b) => a.checked - b.checked);
+      break;
+
+    default:
+      sortedItems = items;
+      break;
   }
 
   return (
@@ -174,17 +181,22 @@ function Item({ item, onDeleteItem, onCheckedItem }) {
             : {}
         }
       >
-        {item.name} {item.quantity}
+        {item.name} : {item.quantity}
       </span>
       <button onClick={() => onDeleteItem(item.id)}>&times;</button>
     </li>
   );
 }
 
-function Footer() {
+function Footer({ items }) {
+  let totalItems = items.length;
+  let totalChecked = items.filter((item) => item.checked).length;
+  let percentage = Math.round((totalChecked / totalItems) * 100);
+
   return (
     <footer className="stats">
-      Ada 10 barang di daftar belanjaan, 5 barang sudah dibeli (50%)
+      Ada {totalItems} barang di daftar belanjaan, {totalChecked} barang sudah
+      dibeli {percentage ? "(" + percentage + "%)" : ""}
     </footer>
   );
 }
