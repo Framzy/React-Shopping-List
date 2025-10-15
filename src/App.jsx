@@ -64,15 +64,9 @@ function GroceryList() {
     <>
       <div className="list">
         <ul>
-          {groceryItems.map((item) => {
-            return (
-              <li key={item.id}>
-                <input type="checkbox" checked={item.checked} />
-                <span>{item.name}</span>
-                <button>&times;</button>
-              </li>
-            );
-          })}
+          {groceryItems.map((item) => (
+            <Item item={item} />
+          ))}
         </ul>
       </div>
       <div className="actions">
@@ -84,6 +78,18 @@ function GroceryList() {
         <button>Bersihkan Daftar</button>
       </div>
     </>
+  );
+}
+
+function Item({ item }) {
+  return (
+    <li key={item.id}>
+      <input type="checkbox" />
+      <span style={item.checked ? { textDecoration: "line-through" } : {}}>
+        {item.quantity} {item.name}
+      </span>
+      <button>&times;</button>
+    </li>
   );
 }
 
