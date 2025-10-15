@@ -24,12 +24,38 @@ const groceryItems = [
 export default function App() {
   const [items, setItems] = useState(groceryItems);
 
+  function handleAddItem(item) {
+    setItems([...items, item]);
+  }
+
+  function handleDeleteItem(id) {
+    setItems(items.filter((item) => item.id !== id));
+    console.log("delete item dengan id : " + id);
+  }
+
+  function handleToggleItem(id) {
+    setItems(
+      items.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      )
+    );
+  }
+
+  function handleClearItems() {
+    setItems([]);
+  }
+
   return (
     <div className="app">
       <Header />
-      <Form />
-      <GroceryList />
-      <Footer />
+      <Form onAddItem={handleAddItem} />
+      <GroceryList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onCheckedItem={handleToggleItem}
+        onClearItems={handleClearItems}
+      />
+      <Footer items={items} />
     </div>
   );
 }
@@ -42,7 +68,7 @@ function Header() {
   );
 }
 
-function Form() {
+function Form({ onAddItem }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -59,6 +85,7 @@ function Form() {
       quantity,
       checked: false,
     };
+    onAddItem(newItem);
 
     console.log(newItem);
     setName("");
@@ -75,62 +102,101 @@ function Form() {
     <>
       <form className="add-form" onSubmit={handleSubmit}>
         <h3>Hari ini belanja apa kita?</h3>
-        <select
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        >
-          {quantityNum}
-        </select>
-        <input
-          type="text"
-          placeholder="nama barang..."
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button>Tambah</button>
+        <div className="form-control">
+          <select
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+          >
+            {quantityNum}
+          </select>
+          <input
+            type="text"
+            placeholder="nama barang..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button>Tambah</button>
+        </div>
       </form>
     </>
   );
 }
 
-function GroceryList() {
+function GroceryList({ items, onDeleteItem, onCheckedItem, onClearItems }) {
+  const [sortBy, setSortBy] = useState("input");
+
+  let sortedItems;
+
+  switch (sortBy) {
+    case "name":
+      sortedItems = items.slice().sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "checked":
+      sortedItems = items.slice().sort((a, b) => a.checked - b.checked);
+      break;
+
+    default:
+      sortedItems = items;
+      break;
+  }
+
   return (
     <>
       <div className="list">
         <ul>
-          {groceryItems.map((item) => (
-            <Item item={item} key={item.id} />
+          {sortedItems.map((item) => (
+            <Item
+              item={item}
+              key={item.id}
+              onDeleteItem={onDeleteItem}
+              onCheckedItem={onCheckedItem}
+            />
           ))}
         </ul>
       </div>
       <div className="actions">
-        <select>
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="input">Urutkan berdasarkan urutan input</option>
           <option value="name">Urutkan berdasarkan nama barang</option>
           <option value="checked">Urutkan berdasarkan ceklis</option>
         </select>
-        <button>Bersihkan Daftar</button>
+        <button onClick={onClearItems}>Bersihkan Daftar</button>
       </div>
     </>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItem, onCheckedItem }) {
   return (
     <li key={item.id}>
-      <input type="checkbox" />
-      <span style={item.checked ? { textDecoration: "line-through" } : {}}>
-        {item.quantity} {item.name}
+      <input
+        type="checkbox"
+        checked={item.checked}
+        onChange={() => onCheckedItem(item.id)}
+      />
+      <span
+        style={
+          item.checked
+            ? { textDecoration: "line-through", color: "#0000008a" }
+            : {}
+        }
+      >
+        {item.name} : {item.quantity}
       </span>
-      <button>&times;</button>
+      <button onClick={() => onDeleteItem(item.id)}>&times;</button>
     </li>
   );
 }
 
-function Footer() {
+function Footer({ items }) {
+  let totalItems = items.length;
+  let totalChecked = items.filter((item) => item.checked).length;
+  let percentage = Math.round((totalChecked / totalItems) * 100);
+
   return (
     <footer className="stats">
-      Ada 10 barang di daftar belanjaan, 5 barang sudah dibeli (50%)
+      Ada {totalItems} barang di daftar belanjaan, {totalChecked} barang sudah
+      dibeli {percentage ? "(" + percentage + "%)" : ""}
     </footer>
   );
 }
