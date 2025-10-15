@@ -1,16 +1,81 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📸 Preview
 
-Currently, two official plugins are available:
+<img width="847" height="605" alt="image" src="https://github.com/user-attachments/assets/403325cd-18da-4d3b-b5f4-2de9aee4226d" />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎮 Tic Tac Toe
 
-## React Compiler
+A simple Tic Tac Toe game built with React to practice the fundamentals of components, state, and props.
+This project is inspired by the official React tutorial and serves as a hands-on learning exercise, now published as part of my portfolio.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🧩 Features
 
-## Expanding the ESLint configuration
+> 👥 Two-player mode (local play)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> 🔄 Turn indicator for the active player
+
+> 🏆 Winner detection at game end
+
+> 💻 Clean and responsive interface
+
+## ⚙️ Tech Stack
+
+> ⚛️ React
+
+> 🧠 JavaScript (ES6+)
+
+> 💅 CSS And Tailwind CSS
+
+> ⚡ Vite - for fast development
+
+## 🚀 Getting Started
+
+Clone the repository:
+
+```cmd
+git clone https://github.com/Framzy/Tic-Tac-Toe.git
+cd Tic-Tac-Toe
+```
+
+Install dependencies:
+
+```cmd
+npm install
+```
+
+Start the development server:
+
+```cmd
+npm run dev
+```
+
+Open your browser and go to:
+
+👉 [http://localhost:5173](http://localhost:5173)
+
+## 🧠 What I Learned
+
+- This project helped me understand core React concepts such as:
+
+- Managing local state with useState
+
+- Passing data via props between components
+
+- Handling events in React
+
+- Using conditional rendering for game status and winner display
+
+- Keeping data immutable during state updates
+
+💡 Future Improvements
+
+Here are some possible next steps for expanding this project:
+
+> 🏅 Add score tracking with localStorage
+
+> 🤖 Implement a Player vs Computer (AI) mode
+
+> 🌗 Add Dark Mode
+
+> 🎨 Redesign the UI using Tailwind CSS
