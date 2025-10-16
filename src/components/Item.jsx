@@ -1,12 +1,9 @@
 import { useState } from "react";
+import { useItems } from "../context/useItems.jsx";
 
-export default function Item({
-  item,
-  quantityNum,
-  onEditItem,
-  onDeleteItem,
-  onCheckedItem,
-}) {
+export default function Item({ item }) {
+  const { quantityNum, toggleItem, editItem, deleteItem } = useItems();
+
   const [isEditing, setIsEditing] = useState(false);
   let component;
 
@@ -16,12 +13,12 @@ export default function Item({
         <input
           type="text"
           value={item.name}
-          onChange={(e) => onEditItem(item.id, e.target.value)}
+          onChange={(e) => editItem(item.id, e.target.value)}
         />
         <select
           value={item.quantity}
           onChange={(e) => {
-            onEditItem(item.id, item.name, e.target.value);
+            editItem(item.id, item.name, e.target.value);
             console.log(e.target.value);
           }}
         >
@@ -56,10 +53,10 @@ export default function Item({
       <input
         type="checkbox"
         checked={item.checked}
-        onChange={() => onCheckedItem(item.id)}
+        onChange={() => toggleItem(item.id)}
       />
       {component}
-      <button className="del" onClick={() => onDeleteItem(item.id)}>
+      <button className="del" onClick={() => deleteItem(item.id)}>
         &times;
       </button>
     </li>

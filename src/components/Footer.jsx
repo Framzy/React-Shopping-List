@@ -1,4 +1,8 @@
-export default function Footer({ items }) {
+import { useItems } from "../context/useItems.jsx";
+
+export default function Footer() {
+  const { items } = useItems();
+
   let totalItems = items.length;
   let totalChecked = items.filter((item) => item.checked).length;
   let percentage = Math.round((totalChecked / totalItems) * 100);

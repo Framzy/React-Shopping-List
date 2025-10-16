@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useItems } from "../context/useItems.jsx";
 
-export default function Form({ onAddItem, quantityNum }) {
+export default function Form() {
+  const { addItem, quantityNum } = useItems();
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -17,7 +19,7 @@ export default function Form({ onAddItem, quantityNum }) {
       quantity,
       checked: false,
     };
-    onAddItem(newItem);
+    addItem(newItem);
 
     console.log(newItem);
     setName("");

@@ -1,14 +1,9 @@
 import { useState } from "react";
+import { useItems } from "../context/useItems.jsx";
 import Item from "./Item.jsx";
 
-export default function GroceryList({
-  items,
-  quantityNum,
-  onEditItem,
-  onDeleteItem,
-  onCheckedItem,
-  onClearItems,
-}) {
+export default function GroceryList() {
+  const { items, clearItem } = useItems();
   const [sortBy, setSortBy] = useState("input");
 
   let sortedItems;
@@ -31,15 +26,7 @@ export default function GroceryList({
       <div className="list">
         <ul>
           {sortedItems.map((item) => (
-            <Item
-              item={item}
-              key={item.id}
-              quantity={item.quantity}
-              quantityNum={quantityNum}
-              onEditItem={onEditItem}
-              onDeleteItem={onDeleteItem}
-              onCheckedItem={onCheckedItem}
-            />
+            <Item item={item} key={item.id} quantity={item.quantity} />
           ))}
         </ul>
       </div>
@@ -49,7 +36,7 @@ export default function GroceryList({
           <option value="name">Urutkan berdasarkan nama barang</option>
           <option value="checked">Urutkan berdasarkan ceklis</option>
         </select>
-        <button onClick={onClearItems}>Bersihkan Daftar</button>
+        <button onClick={clearItem}>Bersihkan Daftar</button>
       </div>
     </>
   );
