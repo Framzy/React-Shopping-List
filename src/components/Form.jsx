@@ -5,7 +5,7 @@ export default function Form() {
   const { addItem, quantityNum, searchTerm, setSearchTerm } = useItems();
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [isFind, setIsFind] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,14 +23,14 @@ export default function Form() {
     setQuantity(1);
   }
 
-  function toggleFindMode() {
-    setIsFind((prev) => !prev);
+  function toggleSearchMode() {
+    setIsSearch((prev) => !prev);
     setSearchTerm(""); // reset pencarian
   }
 
   return (
     <>
-      {isFind ? (
+      {isSearch ? (
         <div className="form-container default">
           <h3>Cari barang belanjaan</h3>
           <form className="find-form" onSubmit={(e) => e.preventDefault()}>
@@ -41,7 +41,7 @@ export default function Form() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </form>
-          <button className="find-close" onClick={toggleFindMode}>
+          <button className="find-close" onClick={toggleSearchMode}>
             &times;
           </button>
         </div>
@@ -65,7 +65,7 @@ export default function Form() {
               <button type="submit">Tambah</button>
             </div>
           </form>
-          <button className="find-open" onClick={toggleFindMode}>
+          <button className="find-open" onClick={toggleSearchMode}>
             🔍
           </button>
         </div>
