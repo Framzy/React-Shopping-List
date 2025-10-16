@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Sabun Mandi",
+    "quantity": 3,
+    "checked": true
+  },
+  {
+    "id": 2,
+    "name": "Beras perliter",
+    "quantity": 3,
+    "checked": false
+  },
+  {
+    "id": 3,
+    "name": "Sabun Cuci Piring",
+    "quantity": 1,
+    "checked": false
+  }
+]
