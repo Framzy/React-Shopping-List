@@ -1,45 +1,38 @@
 import { useState } from "react";
+import { useItems } from "../context/useItems.jsx";
 import Item from "./Item.jsx";
+import { useMemo } from "react";
 
-export default function GroceryList({
-  items,
-  quantityNum,
-  onEditItem,
-  onDeleteItem,
-  onCheckedItem,
-  onClearItems,
-}) {
+export default function GroceryList() {
+  const { items, clearItems, searchTerm } = useItems();
   const [sortBy, setSortBy] = useState("input");
 
-  let sortedItems;
+  const filteredList = useMemo(() => {
+    return searchTerm
+      ? items.filter((item) =>
+          item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : items;
+  }, [items, searchTerm]);
 
-  switch (sortBy) {
-    case "name":
-      sortedItems = items.slice().sort((a, b) => a.name.localeCompare(b.name));
-      break;
-    case "checked":
-      sortedItems = items.slice().sort((a, b) => a.checked - b.checked);
-      break;
-
-    default:
-      sortedItems = items;
-      break;
-  }
+  const sortedItems = useMemo(() => {
+    const sorted = [...items];
+    switch (sortBy) {
+      case "name":
+        return sorted.sort((a, b) => a.name.localeCompare(b.name));
+      case "checked":
+        return sorted.sort((a, b) => a.checked - b.checked);
+      default:
+        return sorted;
+    }
+  }, [items, sortBy]);
 
   return (
     <>
       <div className="list">
         <ul>
-          {sortedItems.map((item) => (
-            <Item
-              item={item}
-              key={item.id}
-              quantity={item.quantity}
-              quantityNum={quantityNum}
-              onEditItem={onEditItem}
-              onDeleteItem={onDeleteItem}
-              onCheckedItem={onCheckedItem}
-            />
+          {(searchTerm ? filteredList : sortedItems).map((item) => (
+            <Item item={item} key={item.id} quantity={item.quantity} />
           ))}
         </ul>
       </div>
@@ -49,7 +42,7 @@ export default function GroceryList({
           <option value="name">Urutkan berdasarkan nama barang</option>
           <option value="checked">Urutkan berdasarkan ceklis</option>
         </select>
-        <button onClick={onClearItems}>Bersihkan Daftar</button>
+        <button onClick={clearItems}>Bersihkan Daftar</button>
       </div>
     </>
   );
