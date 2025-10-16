@@ -79,7 +79,7 @@ button {
 }
 
 .list {
-  background-image: url(img/paper-bg.jpg);
+  background-image: url(/public/img/paper-bg.jpg);
   background-repeat: repeat-y;
   background-size: 100%;
   background-blend-mode: color-burn;
@@ -129,7 +129,19 @@ button {
   margin-right: 1.5rem;
 }
 
-.list li button {
+.list li .edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: rgb(14, 79, 143);
+  margin-left: 1rem;
+}
+.list li .del {
   display: flex;
   align-items: center;
   justify-content: center;
