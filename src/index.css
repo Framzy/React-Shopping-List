@@ -79,7 +79,7 @@ button {
 }
 
 .list {
-  background-image: url(/public/img/paper-bg.jpg);
+  background-image: url(/img/paper-bg.jpg);
   background-repeat: repeat-y;
   background-size: 100%;
   background-blend-mode: color-burn;

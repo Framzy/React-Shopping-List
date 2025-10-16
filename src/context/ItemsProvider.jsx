@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useMemo } from "react";
+import { useState, useEffect, useReducer, useMemo } from "react";
 import { ItemsContext } from "./ItemsContext.jsx";
 
 function itemsReducer(state, action) {
@@ -40,6 +40,7 @@ function itemsReducer(state, action) {
 
 export function ItemsProvider({ children }) {
   const [items, dispatch] = useReducer(itemsReducer, []);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // is only run once when the component mounts or local storage/ cache has been deleted
   useEffect(() => {
@@ -47,9 +48,11 @@ export function ItemsProvider({ children }) {
       try {
         const local = localStorage.getItem("items");
         if (local) {
-          dispatch({ type: "load", payload: JSON.parse(local) });
+          const parsed = JSON.parse(local);
+          // console.log("Loaded from localStorage:", parsed);
+          dispatch({ type: "load", payload: parsed });
         } else {
-          console.log("local:", local); // Add this line
+          console.log("No local data, loading from JSON...");
           const response = await fetch("/data/groceryItems.json");
           if (!response.ok) return;
           const data = await response.json();
@@ -57,15 +60,20 @@ export function ItemsProvider({ children }) {
         }
       } catch (err) {
         console.error("Error loading data:", err);
+      } finally {
+        setIsLoaded(true);
       }
     }
 
     fetchData();
-  }, []); // its only run once
+  }, []);
+  // its only run once
 
   useEffect(() => {
+    if (!isLoaded) return;
+    // console.log("Saving to localStorage:", items);
     localStorage.setItem("items", JSON.stringify(items));
-  }, [items]);
+  }, [items, isLoaded]);
 
   const quantityNum = useMemo(
     () =>
@@ -79,8 +87,8 @@ export function ItemsProvider({ children }) {
 
   // Fungsi helper (bisa langsung dipakai di komponen)
   const addItem = (item) => dispatch({ type: "add", payload: item });
-  const editItem = (id, name, quantity) =>
-    dispatch({ type: "edit", payload: { id, updates: { name, quantity } } });
+  const editItem = (id, updates) =>
+    dispatch({ type: "edit", payload: { id, updates } });
   const deleteItem = (id) => dispatch({ type: "delete", payload: id });
   const toggleItem = (id) => dispatch({ type: "toggle", payload: id });
   const clearItems = () => dispatch({ type: "clear" });
@@ -97,7 +105,7 @@ export function ItemsProvider({ children }) {
         clearItems,
       }}
     >
-      {children}
+      {!isLoaded ? <p>Loading items...</p> : children}
     </ItemsContext.Provider>
   );
 }
