@@ -4,17 +4,26 @@ import Item from "./Item.jsx";
 import { useMemo } from "react";
 
 export default function GroceryList() {
-  const { items, clearItems } = useItems();
+  const { items, clearItems, searchTerm } = useItems();
   const [sortBy, setSortBy] = useState("input");
 
+  const filteredList = useMemo(() => {
+    return searchTerm
+      ? items.filter((item) =>
+          item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : items;
+  }, [items, searchTerm]);
+
   const sortedItems = useMemo(() => {
+    const sorted = [...items];
     switch (sortBy) {
       case "name":
-        return items.slice().sort((a, b) => a.name.localeCompare(b.name));
+        return sorted.sort((a, b) => a.name.localeCompare(b.name));
       case "checked":
-        return items.slice().sort((a, b) => a.checked - b.checked);
+        return sorted.sort((a, b) => a.checked - b.checked);
       default:
-        return items;
+        return sorted;
     }
   }, [items, sortBy]);
 
@@ -22,7 +31,7 @@ export default function GroceryList() {
     <>
       <div className="list">
         <ul>
-          {sortedItems.map((item) => (
+          {(searchTerm ? filteredList : sortedItems).map((item) => (
             <Item item={item} key={item.id} quantity={item.quantity} />
           ))}
         </ul>

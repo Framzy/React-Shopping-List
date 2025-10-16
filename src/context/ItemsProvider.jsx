@@ -41,6 +41,7 @@ function itemsReducer(state, action) {
 export function ItemsProvider({ children }) {
   const [items, dispatch] = useReducer(itemsReducer, []);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // is only run once when the component mounts or local storage/ cache has been deleted
   useEffect(() => {
@@ -103,6 +104,8 @@ export function ItemsProvider({ children }) {
         deleteItem,
         toggleItem,
         clearItems,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       {!isLoaded ? <p>Loading items...</p> : children}
