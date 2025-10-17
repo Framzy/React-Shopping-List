@@ -2,7 +2,8 @@
 
 ## 📸 Preview
 
-<img width="846" height="607" alt="image" src="https://github.com/user-attachments/assets/9c2af20f-81b5-48af-881f-92f3ff27a916" />
+<img width="951" height="752" alt="image" src="https://github.com/user-attachments/assets/fb1164f3-d0b0-4232-a1c8-79181dbcdc8c" />
+
 
 ## 🎮 hopping List
 
