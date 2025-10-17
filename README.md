@@ -12,19 +12,29 @@ This project was created as part of a hands-on learning journey to build interac
 ## 🧩 Features
 
 > ➕ Add new grocery items with name and quantity
+
 > 📝 Edit or update existing items directly in the list
+
 > ✅ Mark items as checked when purchased
+
 > 🗑️ Delete individual items or clear the entire list
+
 > 🔍 Search for items dynamically using global state
+
 > 🧠 Persistent data using LocalStorage
+
 > ⚙️ Sorting items by input order, name, or checked status
+
 > 💻 Clean and responsive layout built with CSS
 
 ## ⚙️ Tech Stack
 
 > ⚛️ React 18+ — component-based UI
+
 > 🧠 Context + useReducer — global state management
+
 > 💅 CSS — styling the layout and components
+
 > ⚡ Vite — fast and modern development environment
 
 ## 🚀 Getting Started
@@ -75,10 +85,15 @@ Then open your browser and navigate to:
 Here are some possible enhancements to take this project further:
 
 > 🌗 Add Dark Mode toggle
+
 > 📱 Improve mobile responsiveness
+
 > 📦 Add category or price input per item
+
 > 🔔 Add reminders or notifications for pending items
+
 > 🗃️ Store data using an external API or backend (e.g. Firebase or Supabase)
+
 > 🎨 Polish UI with Tailwind CSS or Framer Motion animations
 
 ## 🏁 Summary
